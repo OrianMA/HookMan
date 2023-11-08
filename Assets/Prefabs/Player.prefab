@@ -290,7 +290,7 @@ MonoBehaviour:
   staticObject: {fileID: 0}
   spriteRenderer: {fileID: 8639286824731610879}
   distanceJoint: {fileID: 8639286826352800124}
-  hookSpeed: 250
+  hookSpeed: 300
   angleHook: 15
   mask:
     serializedVersion: 2
