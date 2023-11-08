@@ -9,6 +9,8 @@ public class EndView : View
     public TMPro.TextMeshProUGUI trollQuote;
     public List<TrollEndText> trollEndTexts;
 
+    bool isFirstTime;
+
     public override void Init()
     {
         scoreInFinish.text = TimerManager.Instance.m_TextMeshPro.text;
@@ -17,11 +19,14 @@ public class EndView : View
             bestScore.text = PlayerPrefs.GetString("Level" + LevelManager.Instance.currentLevel);
         else
         {
+            isFirstTime = true;
             if (LevelManager.Instance.levelType == LevelType.Parkour)
                 bestScore.text = "00:00:000";
+            if (LevelManager.Instance.levelType == LevelType.FarFarAway)
+                bestScore.text = "0M";
         }
 
-        if (LevelManager.Instance.isBeatScore || bestScore.text == "00:00:000")
+        if (LevelManager.Instance.isBeatScore || isFirstTime)
         {
             trollQuote.text = trollEndTexts[0].quotes[Random.Range(0, trollEndTexts[0].quotes.Count)];
         } else

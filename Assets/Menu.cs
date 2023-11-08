@@ -34,9 +34,12 @@ public class Menu : MonoBehaviour
 
         levelSelectedText.text = levelIndex.ToString();
         mapImage.sprite = spritesMapInOrder[levelSelectedIndex-1];
-        print(PlayerPrefs.GetString($"Level{levelIndex}"));
+        
         if (PlayerPrefs.GetString($"Level{levelIndex}") == "")
-            BestScore.text = "00:00:000";
+        {
+
+            BestScore.text = "000";
+        }
         else
             BestScore.text = PlayerPrefs.GetString($"Level{levelIndex}");
 

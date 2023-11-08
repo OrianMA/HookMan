@@ -570,7 +570,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentLevel: 4
-  levelType: 0
+  levelType: 1
   isBeatScore: 0
 --- !u!1 &47744665
 GameObject:
@@ -24281,7 +24281,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1598875054
 MonoBehaviour:
   m_ObjectHideFlags: 0

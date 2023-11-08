@@ -1413,6 +1413,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentLevel: 1
+  levelType: 0
   isBeatScore: 0
 --- !u!1 &47744665
 GameObject:
