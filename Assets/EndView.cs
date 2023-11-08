@@ -16,7 +16,10 @@ public class EndView : View
         if (PlayerPrefs.GetString("Level" + LevelManager.Instance.currentLevel) != "")
             bestScore.text = PlayerPrefs.GetString("Level" + LevelManager.Instance.currentLevel);
         else
-            bestScore.text = "00:00:000";
+        {
+            if (LevelManager.Instance.levelType == LevelType.Parkour)
+                bestScore.text = "00:00:000";
+        }
 
         if (LevelManager.Instance.isBeatScore || bestScore.text == "00:00:000")
         {
