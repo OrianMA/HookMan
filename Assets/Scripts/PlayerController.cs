@@ -18,8 +18,7 @@ public class PlayerController : MonoSingleton<PlayerController>
     public float forceRightOnHoldHook;
     public float forceAddOnGround;
 
-    public float minForceIncreaseHook;
-    public float maxForceIncreaseHook;
+    public float velocityNeedOnGround;
     public bool isFirstCheckpoint;
 
 
@@ -189,8 +188,16 @@ public class PlayerController : MonoSingleton<PlayerController>
 
         if (isGrounded)
         {
-            rb.AddForce(Vector3.right * forceAddOnGround);
-            distanceJoint.distance = Vector2.Distance(transform.position + Vector3.up * .75f, pos);
+            if (rb.velocity.x > velocityNeedOnGround)
+            {
+                transform.position = transform.position + Vector3.up * .5f;
+                distanceJoint.distance = Vector2.Distance(transform.position, pos);
+            } else
+            {
+                transform.position = transform.position + Vector3.up * .75f;
+                distanceJoint.distance = Vector2.Distance(transform.position, pos);
+                rb.AddForce(Vector3.right * forceAddOnGround);
+            }
         }
         else
             distanceJoint.distance = Vector2.Distance(transform.position, pos);
