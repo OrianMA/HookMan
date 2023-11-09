@@ -20,7 +20,7 @@ public class PlayerController : MonoSingleton<PlayerController>
 
     public float velocityNeedOnGround;
     public bool isFirstCheckpoint;
-
+    public float maxDistanceHook;
 
     float baseAngleHook;
     float raycastDistance = 0f; // Distance du rayo               // Masque de couche (LayerMask) pour la couche "FrontEnvironment"
@@ -77,7 +77,7 @@ public class PlayerController : MonoSingleton<PlayerController>
                 if (!isObstacleDetect)
                 {
 
-                    hook.transform.localScale = Vector3.one + Vector3.up * (hook.transform.localScale.y + hookSpeed * Time.deltaTime);
+                    hook.transform.localScale = Vector3.one + Vector3.up * (Mathf.Clamp(hook.transform.localScale.y + hookSpeed * Time.deltaTime, 0, maxDistanceHook));
                     //hook.transform.localScale.Set(hook.transform.localScale.x, hook.transform.localScale.y + hookSpeed * Time.deltaTime, 1);
                     raycastDistance = hook.transform.localScale.y * 0.1f;
 
