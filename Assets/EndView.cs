@@ -6,8 +6,6 @@ public class EndView : View
 {
     public TMPro.TextMeshProUGUI scoreInFinish;
     public TMPro.TextMeshProUGUI bestScore;
-    public TMPro.TextMeshProUGUI trollQuote;
-    public List<TrollEndText> trollEndTexts;
 
     bool isFirstTime;
 
@@ -24,14 +22,6 @@ public class EndView : View
                 bestScore.text = "00:00:000";
             if (LevelManager.Instance.levelType == LevelType.FarFarAway)
                 bestScore.text = "0M";
-        }
-
-        if (LevelManager.Instance.isBeatScore || isFirstTime)
-        {
-            trollQuote.text = trollEndTexts[0].quotes[Random.Range(0, trollEndTexts[0].quotes.Count)];
-        } else
-        {
-            trollQuote.text = trollEndTexts[1].quotes[Random.Range(0, trollEndTexts[1].quotes.Count)];
         }
     }
 
