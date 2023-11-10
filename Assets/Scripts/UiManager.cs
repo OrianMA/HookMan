@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 public class UiManager : MonoSingleton<UiManager>
 {
     public List<View> allView;
-
+    public GameView _gameView;
     public void Init()
     {
         OpenView("GameView");
@@ -47,6 +47,11 @@ public class UiManager : MonoSingleton<UiManager>
             } else 
                 view.gameObject.SetActive(false);
         }
+    }
+
+    public void Reset()
+    {
+        _gameView.DesactiveCoin();
     }
 
 }

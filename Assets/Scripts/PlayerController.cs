@@ -27,6 +27,7 @@ public class PlayerController : MonoSingleton<PlayerController>
     float raycastDistance = 0f; // Distance du rayo               // Masque de couche (LayerMask) pour la couche "FrontEnvironment"
     bool isObstacleDetect;
     public bool isRight;
+    public bool isNoMoveCam;
 
     public float minLentOrthoSize;
     public float maxLentOrthoSize;
@@ -134,9 +135,12 @@ public class PlayerController : MonoSingleton<PlayerController>
             FlipPlayer();
         }
         //Mathf.Lerp(valeurCourante, valeurCible, vitesseAugmentation * Time.deltaTime);
-        virtualCamera.m_Lens.OrthographicSize = Mathf.Lerp(virtualCamera.m_Lens.OrthographicSize,
-                                                            Mathf.Clamp((Mathf.Abs(rb.velocity.x) + Mathf.Abs(rb.velocity.y)) / 2, minLentOrthoSize, maxLentOrthoSize),
-                                                            lentOrthoSizeSpeed * Time.deltaTime);
+        if (!isNoMoveCam)
+        {
+            virtualCamera.m_Lens.OrthographicSize = Mathf.Lerp(virtualCamera.m_Lens.OrthographicSize,
+                                                                Mathf.Clamp((Mathf.Abs(rb.velocity.x) + Mathf.Abs(rb.velocity.y)) / 2, minLentOrthoSize, maxLentOrthoSize),
+                                                                lentOrthoSizeSpeed * Time.deltaTime);
+        }
 
 
         Vector3 rayDirectionGrounded = Vector2.down;
@@ -213,7 +217,7 @@ public class PlayerController : MonoSingleton<PlayerController>
         ResetHook();
         PowerupManager.Instance.reAddPowerUp();
         PowerupManager.Instance.StopAll();
-
+        UiManager.Instance.Reset();
         if (isFirstCheckpoint)
         {
             TimerManager.Instance.ResetTime();

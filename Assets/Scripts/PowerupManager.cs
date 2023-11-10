@@ -6,6 +6,7 @@ using UnityEngine;
 public class PowerupManager : MonoSingleton<PowerupManager>
 {
     public List<GameObject> powerUpsInScene;
+    int _coins;
 
     public void reAddPowerUp()
     {
@@ -16,6 +17,8 @@ public class PowerupManager : MonoSingleton<PowerupManager>
         {
             powerup.SetActive(true);
         }
+
+        _coins = 0;
     }
     public void ActiveSpeed(float duration)
     {
@@ -25,6 +28,12 @@ public class PowerupManager : MonoSingleton<PowerupManager>
     {
         yield return new WaitForSeconds(duration);
         PlayerController.Instance.ResetHookStats();
+    }
+
+    public void AddCoin()
+    {
+        _coins++;
+        UiManager.Instance._gameView.ActiveCoin();
     }
 
     public void StopAll()
