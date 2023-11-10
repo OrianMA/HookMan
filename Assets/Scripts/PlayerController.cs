@@ -18,10 +18,9 @@ public class PlayerController : MonoSingleton<PlayerController>
     public float forceRightOnHoldHook;
     public float forceAddOnGround;
 
-    public float minForceIncreaseHook;
-    public float maxForceIncreaseHook;
+    public float velocityNeedOnGround;
     public bool isFirstCheckpoint;
-
+    public float maxDistanceHook;
 
     float baseAngleHook;
     float raycastDistance = 0f; // Distance du rayo               // Masque de couche (LayerMask) pour la couche "FrontEnvironment"
@@ -47,6 +46,10 @@ public class PlayerController : MonoSingleton<PlayerController>
 
     RaycastHit2D hitHook;
     RaycastHit2D hiGround;
+    Collider2D hiGroundBox;
+    Collider2D[] colliderboxResult;
+    ContactFilter2D contactFilter2;
+
     bool isGrounded;
     Vector3 rayOrigin;
     float baseForceRightOnHoldHook;
@@ -66,6 +69,10 @@ public class PlayerController : MonoSingleton<PlayerController>
         baseMinLentOrthoSize = minLentOrthoSize;
         isFirstCheckpoint = true;
         basicSprite = spriteRenderer.sprite;
+        colliderboxResult = new Collider2D[1];
+        contactFilter2 = new ContactFilter2D();
+        contactFilter2.SetLayerMask(isGroundedMask);
+        contactFilter2.layerMask = isGroundedMask;
     }
 
     // Update is called once per frame
@@ -79,7 +86,7 @@ public class PlayerController : MonoSingleton<PlayerController>
                 if (!isObstacleDetect)
                 {
 
-                    hook.transform.localScale = Vector3.one + Vector3.up * (hook.transform.localScale.y + hookSpeed * Time.deltaTime);
+                    hook.transform.localScale = Vector3.one + Vector3.up * (Mathf.Clamp(hook.transform.localScale.y + hookSpeed * Time.deltaTime, 0, maxDistanceHook));
                     //hook.transform.localScale.Set(hook.transform.localScale.x, hook.transform.localScale.y + hookSpeed * Time.deltaTime, 1);
                     raycastDistance = hook.transform.localScale.y * 0.1f;
 
@@ -127,11 +134,11 @@ public class PlayerController : MonoSingleton<PlayerController>
 
 
 
-        if (isRight && rb.velocity.x < 0)
+        if (isRight && rb.velocity.x < -0.1f)
         {
             FlipPlayer();
         }
-        else if (!isRight && rb.velocity.x > 0) {
+        else if (!isRight && rb.velocity.x > 0.1f) {
             FlipPlayer();
         }
         //Mathf.Lerp(valeurCourante, valeurCible, vitesseAugmentation * Time.deltaTime);
@@ -143,12 +150,8 @@ public class PlayerController : MonoSingleton<PlayerController>
         }
 
 
-        Vector3 rayDirectionGrounded = Vector2.down;
-
-
-        hiGround = Physics2D.Raycast(rayOrigin, rayDirectionGrounded, 1f, isGroundedMask);
-
-        if (hiGround.collider != null)
+        
+        if (Physics2D.OverlapBox(new Vector2(transform.position.x, transform.position.y-.5f), Vector2.one * 1f, 0, contactFilter2, colliderboxResult) > 0)
         {
             isGrounded = true;
         }
@@ -193,11 +196,23 @@ public class PlayerController : MonoSingleton<PlayerController>
 
         if (isGrounded)
         {
-            rb.AddForce(Vector3.right * forceAddOnGround);
-            distanceJoint.distance = Vector2.Distance(transform.position + Vector3.up * .75f, pos);
+            if (rb.velocity.x > velocityNeedOnGround)
+            {
+                transform.position = transform.position + Vector3.up * .5f;
+                distanceJoint.distance = Vector2.Distance(transform.position, pos);
+            } else
+            {
+                transform.position = transform.position + Vector3.up * .75f;
+                distanceJoint.distance = Vector2.Distance(transform.position, pos);
+                rb.AddForce(Vector3.right * forceAddOnGround);
+            }
         }
         else
             distanceJoint.distance = Vector2.Distance(transform.position, pos);
+
+
+        hook.transform.localScale = Vector3.up * distanceJoint.distance * 10 + Vector3.right + Vector3.forward;
+
 
         distanceJoint.enabled = true;
     }

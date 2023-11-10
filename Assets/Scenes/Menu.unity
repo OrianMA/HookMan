@@ -685,14 +685,14 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 610e94014b7f7e34faa78dbb1c64c645, type: 3}
   - {fileID: 21300000, guid: a0af87c79d2012743967e45532d5b3a3, type: 3}
   - {fileID: 21300000, guid: d16559494a1155f4ab9d1728ba26b3d0, type: 3}
-  - {fileID: 21300000, guid: a8773abd0e428bc4f968eafccb48e6a4, type: 3}
-  - {fileID: 21300000, guid: a0c988df3c6d5fc449903476bd6a6026, type: 3}
-  - {fileID: 21300000, guid: 7b446a36494578c4394a592b32628213, type: 3}
+  - {fileID: 21300000, guid: c68079ac2f0c2ca4ca468e34f3d36a32, type: 3}
+  - {fileID: 21300000, guid: 4d1de1ae9cadf2e43b9905bf2b2c9885, type: 3}
+  - {fileID: 21300000, guid: 4927726e11b77884eaac59e859b00730, type: 3}
   mapImage: {fileID: 2073374526}
   levelSelectedText: {fileID: 580572389}
   levelMaxText: {fileID: 1579444005}
   BestScore: {fileID: 327470748}
-  maxLevelNumber: 8
+  maxLevelNumber: 9
 --- !u!1 &361923622
 GameObject:
   m_ObjectHideFlags: 0
