@@ -45,6 +45,10 @@ public class PlayerController : MonoSingleton<PlayerController>
 
     RaycastHit2D hitHook;
     RaycastHit2D hiGround;
+    Collider2D hiGroundBox;
+    Collider2D[] colliderboxResult;
+    ContactFilter2D contactFilter2;
+
     bool isGrounded;
     Vector3 rayOrigin;
     float baseForceRightOnHoldHook;
@@ -64,6 +68,10 @@ public class PlayerController : MonoSingleton<PlayerController>
         baseMinLentOrthoSize = minLentOrthoSize;
         isFirstCheckpoint = true;
         basicSprite = spriteRenderer.sprite;
+        colliderboxResult = new Collider2D[1];
+        contactFilter2 = new ContactFilter2D();
+        contactFilter2.SetLayerMask(isGroundedMask);
+        contactFilter2.layerMask = isGroundedMask;
     }
 
     // Update is called once per frame
@@ -125,11 +133,11 @@ public class PlayerController : MonoSingleton<PlayerController>
 
 
 
-        if (isRight && rb.velocity.x < 0)
+        if (isRight && rb.velocity.x < -0.1f)
         {
             FlipPlayer();
         }
-        else if (!isRight && rb.velocity.x > 0) {
+        else if (!isRight && rb.velocity.x > 0.1f) {
             FlipPlayer();
         }
         //Mathf.Lerp(valeurCourante, valeurCible, vitesseAugmentation * Time.deltaTime);
@@ -138,12 +146,8 @@ public class PlayerController : MonoSingleton<PlayerController>
                                                             lentOrthoSizeSpeed * Time.deltaTime);
 
 
-        Vector3 rayDirectionGrounded = Vector2.down;
-
-
-        hiGround = Physics2D.Raycast(rayOrigin, rayDirectionGrounded, 1f, isGroundedMask);
-
-        if (hiGround.collider != null)
+        
+        if (Physics2D.OverlapBox(new Vector2(transform.position.x, transform.position.y-.5f), Vector2.one * 1f, 0, contactFilter2, colliderboxResult) > 0)
         {
             isGrounded = true;
         }
@@ -201,6 +205,10 @@ public class PlayerController : MonoSingleton<PlayerController>
         }
         else
             distanceJoint.distance = Vector2.Distance(transform.position, pos);
+
+
+        hook.transform.localScale = Vector3.up * distanceJoint.distance * 10 + Vector3.right + Vector3.forward;
+
 
         distanceJoint.enabled = true;
     }
