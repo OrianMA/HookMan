@@ -147,7 +147,7 @@ public class PlayerController : MonoSingleton<PlayerController>
 
 
         
-        if (Physics2D.OverlapBox(new Vector2(transform.position.x, transform.position.y-.5f), Vector2.one * 1f, 0, contactFilter2, colliderboxResult) > 0)
+        if (Physics2D.OverlapBox(new Vector2(transform.position.x, transform.position.y-.7f), Vector2.one * .4f, 0, contactFilter2, colliderboxResult) > 0)
         {
             isGrounded = true;
         }
