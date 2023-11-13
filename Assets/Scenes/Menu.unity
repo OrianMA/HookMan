@@ -305,7 +305,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _levelParkour: 
   _levelStatic: LevelStatic1
-  _levelDistance: 
+  _levelDistance: LevelDistance
 --- !u!1 &338476285
 GameObject:
   m_ObjectHideFlags: 0

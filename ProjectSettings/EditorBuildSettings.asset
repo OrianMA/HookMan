@@ -21,7 +21,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Level4.unity
     guid: 31a357f2a73c1224799e2b204e938086
   - enabled: 1
-    path: Assets/Scenes/Level5.unity
+    path: Assets/Scenes/LevelDistance.unity
     guid: c1341246a127d364790e5d9af77143f1
   - enabled: 1
     path: Assets/Scenes/Level6.unity
@@ -30,7 +30,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Level7.unity
     guid: d88a5580c998566438e05878fa2dc342
   - enabled: 1
-    path: Assets/Scenes/Level8.unity
+    path: Assets/Scenes/Level10.unity
     guid: 7f48ec74236c8574b92f763e998ae452
   - enabled: 1
     path: Assets/Scenes/Level9.unity
