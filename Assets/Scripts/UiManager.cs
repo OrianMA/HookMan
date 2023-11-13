@@ -8,6 +8,7 @@ public class UiManager : MonoSingleton<UiManager>
 {
     public List<View> allView;
     public GameView _gameView;
+    public string _nextLevel;
     public void Init()
     {
         OpenView("GameView");
@@ -35,6 +36,13 @@ public class UiManager : MonoSingleton<UiManager>
         TimerManager.Instance.isBlockTimer = false;
         Time.timeScale = 1.0f;
     }
+
+    public void NextLevel()
+    {
+        Time.timeScale = 1.0f;
+        SceneManager.LoadScene(_nextLevel);
+    }
+
 
     public void OpenView(string name)
     {

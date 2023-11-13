@@ -6,58 +6,32 @@ using UnityEngine.UI;
 
 public class Menu : MonoBehaviour
 {
-    public List<Sprite> spritesMapInOrder;
-    public Image mapImage;
-    public TMPro.TextMeshProUGUI levelSelectedText;
-    public TMPro.TextMeshProUGUI levelMaxText;
-    public TMPro.TextMeshProUGUI BestScore;
-    public int maxLevelNumber;
-
-    int levelSelectedIndex;
+    public string _levelParkour;
+    public string _levelStatic;
+    public string _levelDistance;
 
     public void Awake()
     {
         Screen.orientation = ScreenOrientation.LandscapeLeft;
-        SelectLevel(1);
-        levelMaxText.text = maxLevelNumber.ToString();
-        
     }
 
-    public void PlayLevel()
+    public void Parkour()
     {
-        SceneManager.LoadScene("Level" + levelSelectedIndex);
+        SceneManager.LoadScene(_levelParkour);
     }
 
-    public void SelectLevel(int levelIndex)
+    public void Static()
     {
-        levelSelectedIndex = levelIndex;
-
-        levelSelectedText.text = levelIndex.ToString();
-        mapImage.sprite = spritesMapInOrder[levelSelectedIndex-1];
-        
-        if (PlayerPrefs.GetString($"Level{levelIndex}") == "")
-        {
-
-            BestScore.text = "000";
-        }
-        else
-            BestScore.text = PlayerPrefs.GetString($"Level{levelIndex}");
-
+        SceneManager.LoadScene(_levelStatic);
     }
 
-    public void NextLevel()
+    public void Distance()
     {
-        levelSelectedIndex++;
-        if (levelSelectedIndex > maxLevelNumber)
-            levelSelectedIndex = 1;
-        SelectLevel(levelSelectedIndex);
+        SceneManager.LoadScene(_levelDistance);
     }
 
-    public void PreviousLevel()
+    public void Quit()
     {
-        levelSelectedIndex--;
-        if (levelSelectedIndex <= 0)
-            levelSelectedIndex = maxLevelNumber;
-        SelectLevel(levelSelectedIndex);
+        Application.Quit();
     }
 }
