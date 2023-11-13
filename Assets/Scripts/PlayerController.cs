@@ -29,8 +29,8 @@ public class PlayerController : MonoSingleton<PlayerController>
     public bool isRight;
     public bool isNoMoveCam;
 
-    public float minLentOrthoSize;
-    public float maxLentOrthoSize;
+    public float minFOV;
+    public float maxFOV;
     public float lentOrthoSizeSpeed;
     public Cinemachine.CinemachineVirtualCamera virtualCamera;
 
@@ -67,7 +67,7 @@ public class PlayerController : MonoSingleton<PlayerController>
         baseForceRightOnHoldHook = forceRightOnHoldHook;
         baseForceAddOnGround = forceAddOnGround;
         baseHookSpeed = hookSpeed;
-        baseMinLentOrthoSize = minLentOrthoSize;
+        baseMinLentOrthoSize = minFOV;
         isFirstCheckpoint = true;
         basicSprite = spriteRenderer.sprite;
         colliderboxResult = new Collider2D[1];
@@ -145,13 +145,11 @@ public class PlayerController : MonoSingleton<PlayerController>
         //Mathf.Lerp(valeurCourante, valeurCible, vitesseAugmentation * Time.deltaTime);
         if (!isNoMoveCam)
         {
-            virtualCamera.m_Lens.OrthographicSize = Mathf.Lerp(virtualCamera.m_Lens.OrthographicSize,
-                                                                Mathf.Clamp((Mathf.Abs(rb.velocity.x) + Mathf.Abs(rb.velocity.y)) / 2, minLentOrthoSize, maxLentOrthoSize),
+            virtualCamera.m_Lens.FieldOfView = Mathf.Lerp(virtualCamera.m_Lens.FieldOfView,
+                                                                Mathf.Clamp((Mathf.Abs(rb.velocity.x) + Mathf.Abs(rb.velocity.y))*4, minFOV, maxFOV),
                                                                 lentOrthoSizeSpeed * Time.deltaTime);
         }
 
-
-        
         if (Physics2D.OverlapBox(new Vector2(transform.position.x, transform.position.y-1f), Vector2.one * .4f, 0, contactFilter2, colliderboxResult) > 0)
         {
             isGrounded = true;
@@ -235,7 +233,7 @@ public class PlayerController : MonoSingleton<PlayerController>
         spriteRenderer.flipX = false;
         angleHook = baseAngleHook;
         hookSpeed = baseHookSpeed;
-        minLentOrthoSize = baseMinLentOrthoSize;
+        minFOV = baseMinLentOrthoSize;
         forceRightOnHoldHook = baseForceRightOnHoldHook;
         rb.velocity = Vector2.zero;
         isRight = true;
@@ -262,7 +260,7 @@ public class PlayerController : MonoSingleton<PlayerController>
         spriteRenderer.flipX = false;
         angleHook = baseAngleHook;
         hookSpeed = baseHookSpeed;
-        minLentOrthoSize = baseMinLentOrthoSize;
+        minFOV = baseMinLentOrthoSize;
         forceRightOnHoldHook = baseForceRightOnHoldHook;
         rb.velocity = Vector2.zero;
         isRight = true;
@@ -290,7 +288,7 @@ public class PlayerController : MonoSingleton<PlayerController>
     public void ResetHookStats()
     {
         forceRightOnHoldHook = baseForceRightOnHoldHook;
-        minLentOrthoSize = baseMinLentOrthoSize;
+        minFOV = baseMinLentOrthoSize;
     }
 
 
@@ -299,7 +297,7 @@ public class PlayerController : MonoSingleton<PlayerController>
         isFlappyBird = true;
         spriteRenderer.sprite = flappybirdSprite;
         rb.gravityScale = massInFlappyBird;
-        minLentOrthoSize = 16;
+        minFOV = 16;
         rb.velocity = Vector2.right * speedInFlappyBird + Vector2.up * rb.velocity.y;
     }
 

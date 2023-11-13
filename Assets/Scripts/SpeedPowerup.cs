@@ -13,7 +13,7 @@ public class SpeedPowerup : MonoBehaviour
         {
             PowerupManager.Instance.ActiveSpeed(duration);
             PlayerController.Instance.forceRightOnHoldHook = newSpeedSet;
-            PlayerController.Instance.minLentOrthoSize = newMinLentOrthoSize;
+            PlayerController.Instance.minFOV = newMinLentOrthoSize;
             gameObject.SetActive(false);
         }
     }
