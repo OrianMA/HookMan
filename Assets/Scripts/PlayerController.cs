@@ -6,6 +6,7 @@ using UnityEngine;
 public class PlayerController : MonoSingleton<PlayerController>
 {
     public GameObject hook;
+    public GameObject hookHead;
     public GameObject staticObject;
     public SpriteRenderer spriteRenderer;
     public DistanceJoint2D distanceJoint;
@@ -95,8 +96,11 @@ public class PlayerController : MonoSingleton<PlayerController>
                     hook.transform.rotation = Quaternion.Euler(new Vector3(0, 0, -angleHook));
 
 
+
                     hitHook = Physics2D.Raycast(rayOrigin, rayDirectionHook, raycastDistance, mask);
 
+                    //hookHead.transform.position = transform.TransformDirection(hookHead.transform.position.x, hook.transform.localScale.y * 0.1f, 0);
+                    
                     if (hitHook.collider != null && hitHook.collider.gameObject.GetComponent<Rigidbody2D>() != null)
                     {
                         HookTouch(hitHook.point);
@@ -131,9 +135,6 @@ public class PlayerController : MonoSingleton<PlayerController>
             //rb.velocity = Vector2.right * speedInFlappyBird + Vector2.up * rb.velocity.y;
         }
 
-
-
-
         if (isRight && rb.velocity.x < -0.1f)
         {
             FlipPlayer();
@@ -151,7 +152,7 @@ public class PlayerController : MonoSingleton<PlayerController>
 
 
         
-        if (Physics2D.OverlapBox(new Vector2(transform.position.x, transform.position.y-.7f), Vector2.one * .4f, 0, contactFilter2, colliderboxResult) > 0)
+        if (Physics2D.OverlapBox(new Vector2(transform.position.x, transform.position.y-1f), Vector2.one * .4f, 0, contactFilter2, colliderboxResult) > 0)
         {
             isGrounded = true;
         }
@@ -164,7 +165,7 @@ public class PlayerController : MonoSingleton<PlayerController>
 
     private void Update()
     {
-        if(isObstacleDetect)
+        if (isObstacleDetect)
         {
             Vector3 targetPosition = hitHook.point;
 
@@ -174,8 +175,15 @@ public class PlayerController : MonoSingleton<PlayerController>
             float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
 
             hook.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle - 90));
+            hookHead.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle - 90));
+            hookHead.transform.localPosition = Vector3.zero;
+        } else
+        {
+            hookHead.transform.rotation = Quaternion.Euler(new Vector3(0, 0, -angleHook));
+            //hookHead.transform.up 
+            hookHead.transform.localPosition = hookHead.transform.up * (hook.transform.localScale.y * 0.1f);
+            //hookHead.transform.localPosition =  new Vector3(0, hook.transform.localScale.y * 0.1f, 0);
         }
-
         if (isFlappyBird && Input.GetMouseButton(0))
         {
             rb.velocity = (Vector2.right * rb.velocity.x) + Vector2.up * flappybirdForce;
@@ -215,6 +223,9 @@ public class PlayerController : MonoSingleton<PlayerController>
 
 
         distanceJoint.enabled = true;
+
+        hookHead.transform.position = Vector3.zero;
+        hookHead.transform.parent = staticObject.transform;
     }
 
     public void ResetPlayer()
@@ -273,6 +284,7 @@ public class PlayerController : MonoSingleton<PlayerController>
         raycastDistance = 0;
         hook.transform.localScale = Vector3.one + Vector3.up * 0;
         distanceJoint.enabled = false;
+        hookHead.transform.parent = transform;
     }
 
     public void ResetHookStats()

@@ -64462,6 +64462,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   viewName: GameView
+  _coinsWhite: {fileID: 0}
+  _coinsBlack: {fileID: 0}
+  _coins: {fileID: 0}
 --- !u!1 &749563208
 GameObject:
   m_ObjectHideFlags: 0
@@ -64753,11 +64756,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9092222769278268628, guid: aad4acbff62210b4f84e303fd86be0c5, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 28.56335
+      value: 1.5533502
       objectReference: {fileID: 0}
     - target: {fileID: 9092222769278268628, guid: aad4acbff62210b4f84e303fd86be0c5, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 29.118881
+      value: -0.21111858
       objectReference: {fileID: 0}
     - target: {fileID: 9092222769278268628, guid: aad4acbff62210b4f84e303fd86be0c5, type: 3}
       propertyPath: m_LocalPosition.z
@@ -126817,7 +126820,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1459336258}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 28.56335, y: 29.118881, z: -9.760189}
+  m_LocalPosition: {x: 1.5533502, y: -0.21111858, z: -9.760189}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -128744,6 +128747,8 @@ MonoBehaviour:
   - {fileID: 746682403}
   - {fileID: 1809871648}
   - {fileID: 2048627718}
+  _gameView: {fileID: 0}
+  _nextLevel: 
 --- !u!1 &1950885892
 GameObject:
   m_ObjectHideFlags: 0
@@ -130385,31 +130390,6 @@ MonoBehaviour:
   viewName: EndView
   scoreInFinish: {fileID: 1341339638}
   bestScore: {fileID: 47744668}
-  trollQuote: {fileID: 1121041260}
-  trollEndTexts:
-  - name: Win
-    quotes:
-    - GG BRO !!
-    - PAPAPAAAA
-    - Je fais mieux mais oklm gg
-    - Hum.. bg
-    - SKIBILI PA PA
-    - EN SAH ! GG
-  - name: Loose
-    quotes:
-    - Haha, nul
-    - Peu myeu fair
-    - Gros faut y aller la, bas ton records
-    - AHHH pas loin en vrai.. (en vrai non)
-    - Sinon animal crossing c'est peux etre bien pour toi non
-    - Ma grand mere fait mieux que toi (elle est morte)
-    - Mon chien fait mieux que toi (il est mort)
-    - GG (non)
-    - "\xAB L\u2019homme est n\xE9 libre, et partout il est dans les fers \xBB"
-    - "\xAB On ne na\xEEt pas femme : on le devient \xBB"
-    - "\"Au lieu de dire na\xEFvement : \u2018JE n\u2019ai plus aucune valeur\u2019,
-      le mensonge moral dit par la bouche du d\xE9cadent : \u2018rien n\u2019a aucune
-      valeur, la VIE n\u2019a aucune valeur\u2019\u2026 \""
 --- !u!1 &2094532962
 GameObject:
   m_ObjectHideFlags: 0
@@ -130697,11 +130677,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8639286826352800120, guid: c9f3a0e1869ee724dad6ff795710de22, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 27.61
+      value: 0.6
       objectReference: {fileID: 0}
     - target: {fileID: 8639286826352800120, guid: c9f3a0e1869ee724dad6ff795710de22, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 27.63
+      value: -1.7
       objectReference: {fileID: 0}
     - target: {fileID: 8639286826352800120, guid: c9f3a0e1869ee724dad6ff795710de22, type: 3}
       propertyPath: m_LocalPosition.z

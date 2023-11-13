@@ -2004,7 +2004,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2aca3e84470fc984698119f98544c745, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentLevel: 1
+  currentLevel: 4
   levelType: 0
   isBeatScore: 0
 --- !u!1 &47744665
