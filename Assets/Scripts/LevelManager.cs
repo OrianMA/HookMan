@@ -50,7 +50,6 @@ public class LevelManager : MonoSingleton<LevelManager>
 
     void FinishParkourLevel()
     {
-
         if (bestScore != "")
         {
             bestMinutes = int.Parse(bestScore.Split(':')[0]);

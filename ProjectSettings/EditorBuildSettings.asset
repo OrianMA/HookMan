@@ -12,9 +12,6 @@ EditorBuildSettings:
     path: Assets/Scenes/LevelParkour1.unity
     guid: 07c96f9af416b014396480fc9eec92dd
   - enabled: 1
-    path: Assets/Scenes/LevelDistance.unity
-    guid: c1341246a127d364790e5d9af77143f1
-  - enabled: 1
     path: Assets/Scenes/LevelParkour2.unity
     guid: ff7cb06c180a74c498760760571a2f11
   - enabled: 1
@@ -23,4 +20,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/LevelStatic2.unity
     guid: 9b2ccb792212f4747af3c46089c4f347
-  m_configObjects: {}
+  - enabled: 1
+    path: Assets/Scenes/LevelDistance.unity
+    guid: c1341246a127d364790e5d9af77143f1
+  - enabled: 1
+    path: Assets/Scenes/LevelDistance2.unity
+    guid: 196c3f42ee465eb40a06daccbd31f29b
+  m_configObjects:
+    com.unity.adaptiveperformance.loader_settings: {fileID: 11400000, guid: cda42136ddf57ac4eacca7986d432840, type: 2}
+    com.unity.adaptiveperformance.samsung.android.provider_settings: {fileID: 11400000, guid: e2c4d46a921ac8542a204a1c4def8ac7, type: 2}
+    com.unity.adaptiveperformance.simulator.provider_settings: {fileID: 11400000, guid: 02f4cbb52a3a82d4b83686374ab3a66b, type: 2}

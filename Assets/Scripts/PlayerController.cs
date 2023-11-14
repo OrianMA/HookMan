@@ -274,6 +274,7 @@ public class PlayerController : MonoSingleton<PlayerController>
         angleHook *= -1;
         spriteRenderer.flipX = !spriteRenderer.flipX;
         forceAddOnGround *= -1;
+        //hook.transform.localPosition = new Vector3(-hook.transform.localPosition.x, hook.transform.localPosition.y, 0);
     }
 
     public void ResetHook()

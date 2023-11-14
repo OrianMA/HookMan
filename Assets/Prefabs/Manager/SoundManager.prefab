@@ -46,9 +46,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   allMusics:
-  - {fileID: 8300000, guid: ee696012f4c6e5945ab169409c6668e0, type: 3}
-  - {fileID: 8300000, guid: 1289acecf99dc1f4d93429419b183957, type: 3}
-  - {fileID: 8300000, guid: 2953138cb924c20428bd631ffcfd2e93, type: 3}
+  - {fileID: 8300000, guid: cdd9c682c2845cc4aa21a5488de063af, type: 3}
+  - {fileID: 8300000, guid: f7885c8002a84324087c01b40c7ec0ab, type: 3}
   audioSource: {fileID: 5920180556980339227}
 --- !u!82 &5920180556980339227
 AudioSource:
