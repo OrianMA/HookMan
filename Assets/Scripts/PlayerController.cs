@@ -40,6 +40,10 @@ public class PlayerController : MonoSingleton<PlayerController>
     public Sprite flappybirdSprite;
     public float massInFlappyBird;
     public float speedInFlappyBird;
+    public float scaleInFlappyBird;
+    public float fovFlappyBird;
+    public float maxVelocityY;
+    public float speedVelocityY;
 
     Sprite basicSprite;
 
@@ -57,6 +61,9 @@ public class PlayerController : MonoSingleton<PlayerController>
     float baseForceAddOnGround;
     float baseHookSpeed;
     float baseMinLentOrthoSize;
+
+    float baseScalePlayer;
+
     
 
     public void Init()
@@ -74,6 +81,7 @@ public class PlayerController : MonoSingleton<PlayerController>
         contactFilter2 = new ContactFilter2D();
         contactFilter2.SetLayerMask(isGroundedMask);
         contactFilter2.layerMask = isGroundedMask;
+        baseScalePlayer = spriteRenderer.gameObject.transform.localScale.x;
     }
 
     // Update is called once per frame
@@ -161,6 +169,8 @@ public class PlayerController : MonoSingleton<PlayerController>
 
     }
 
+    bool isMouseTouch;
+    float rbY = 0;
     private void Update()
     {
         if (isObstacleDetect)
@@ -182,10 +192,29 @@ public class PlayerController : MonoSingleton<PlayerController>
             hookHead.transform.localPosition = hookHead.transform.up * (hook.transform.localScale.y * 0.1f);
             //hookHead.transform.localPosition =  new Vector3(0, hook.transform.localScale.y * 0.1f, 0);
         }
+            
         if (isFlappyBird && Input.GetMouseButton(0))
         {
-            rb.velocity = (Vector2.right * rb.velocity.x) + Vector2.up * flappybirdForce;
+            print(rbY);
+            rbY = Mathf.Lerp(rbY, maxVelocityY, speedVelocityY * Time.deltaTime);
+            rb.velocity = Vector2.right * rb.velocity.x + Vector2.up * rbY;
+            //Mathf.Lerp(rb.velocity, (Vector2.right * rb.velocity.x) + Vector2.up * Mathf.Lerp(rb.velocity.y, Mathf.Clamp(rb.velocity.y, -maxVelocityY, maxVelocityY), speedVelocityY * Time.deltaTime);
+
+
+            //rb.velocity = (Vector2.right * rb.velocity.x) + Vector2.up * Mathf.Lerp(rb.velocity.y, Mathf.Clamp(rb.velocity.y, -maxVelocityY, maxVelocityY), speedVelocityY * Time.deltaTime);
+
+            //isMouseTouch = true;
+            /*           if (rb.velocity.y < 0)
+                       {
+                           rb.velocity = Vector2.right * rb.velocity.x + Vector2.up * (flappybirdForce / rb.mass) * Time.fixedDeltaTime; ;
+                       } else 
+                           rb.AddForce(Vector2.up * flappybirdForce);*/
+        } else if (isFlappyBird)
+        {
+            rbY = Mathf.Lerp(rbY, -maxVelocityY, speedVelocityY * Time.deltaTime);
+            rb.velocity = Vector2.right * rb.velocity.x + Vector2.up * rbY;
         }
+        
     }
 
     public void HookTouch(Vector2 pos)
@@ -249,9 +278,14 @@ public class PlayerController : MonoSingleton<PlayerController>
         StartCoroutine(WaitAndResetPlayer());
 
         spriteRenderer.sprite = basicSprite;
-        isFlappyBird = false;
-
+        if (isFlappyBird)
+        {
+            isNoMoveCam = false;
+            isFlappyBird = false;
+        }
+        spriteRenderer.transform.localScale = Vector3.one * baseScalePlayer;
         rb.gravityScale = 1;
+        
     }
 
     IEnumerator WaitAndResetPlayer()
@@ -290,6 +324,7 @@ public class PlayerController : MonoSingleton<PlayerController>
     {
         forceRightOnHoldHook = baseForceRightOnHoldHook;
         minFOV = baseMinLentOrthoSize;
+        hookSpeed = baseHookSpeed;
     }
 
 
@@ -298,9 +333,20 @@ public class PlayerController : MonoSingleton<PlayerController>
         isFlappyBird = true;
         spriteRenderer.sprite = flappybirdSprite;
         rb.gravityScale = massInFlappyBird;
-        minFOV = 16;
+        //minFOV = minFOVFlappyBird;
+        virtualCamera.m_Lens.FieldOfView = fovFlappyBird;
+        spriteRenderer.transform.localScale = Vector3.one * scaleInFlappyBird;
+        isNoMoveCam = true;
         rb.velocity = Vector2.right * speedInFlappyBird + Vector2.up * rb.velocity.y;
     }
 
-}
+    public void ResetTransformation()
+    {
+        spriteRenderer.sprite = basicSprite;
+        isFlappyBird = false;
+        spriteRenderer.transform.localScale = Vector3.one * baseScalePlayer;
+        rb.gravityScale = 1;
+        isNoMoveCam = false;
+    }
 
+}

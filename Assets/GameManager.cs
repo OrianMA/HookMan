@@ -8,7 +8,7 @@ public class GameManager : MonoSingleton<GameManager>
 {
     private void Awake()
     {
-        Application.targetFrameRate = 60;
+        Application.targetFrameRate = 200;
         Screen.orientation = ScreenOrientation.LandscapeLeft;
         PlayerController.Instance.Init();
         UiManager.Instance.Init();
