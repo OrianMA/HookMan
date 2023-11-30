@@ -44,6 +44,9 @@ public class PlayerController : MonoSingleton<PlayerController>
     public float fovFlappyBird;
     public float maxVelocityY;
     public float speedVelocityY;
+    public float speedVelocityNegativeY;
+    public ParticleSystem flappyBirdParticles;
+    public bool isConcerveStateAtDeath;
 
     Sprite basicSprite;
 
@@ -82,6 +85,7 @@ public class PlayerController : MonoSingleton<PlayerController>
         contactFilter2.SetLayerMask(isGroundedMask);
         contactFilter2.layerMask = isGroundedMask;
         baseScalePlayer = spriteRenderer.gameObject.transform.localScale.x;
+        //TransformPlayerIntoFlappyBird();
     }
 
     // Update is called once per frame
@@ -135,14 +139,6 @@ public class PlayerController : MonoSingleton<PlayerController>
             ResetHook();
         }
 
-
-        if (isFlappyBird)
-        {
-            //rb.AddForce(Vector2.up * flappybirdForce);
-            
-            //rb.velocity = Vector2.right * speedInFlappyBird + Vector2.up * rb.velocity.y;
-        }
-
         if (isRight && rb.velocity.x < -0.1f)
         {
             FlipPlayer();
@@ -193,26 +189,29 @@ public class PlayerController : MonoSingleton<PlayerController>
             //hookHead.transform.localPosition =  new Vector3(0, hook.transform.localScale.y * 0.1f, 0);
         }
             
-        if (isFlappyBird && Input.GetMouseButton(0))
+        if (isFlappyBird)
         {
-            print(rbY);
-            rbY = Mathf.Lerp(rbY, maxVelocityY, speedVelocityY * Time.deltaTime);
-            rb.velocity = Vector2.right * rb.velocity.x + Vector2.up * rbY;
-            //Mathf.Lerp(rb.velocity, (Vector2.right * rb.velocity.x) + Vector2.up * Mathf.Lerp(rb.velocity.y, Mathf.Clamp(rb.velocity.y, -maxVelocityY, maxVelocityY), speedVelocityY * Time.deltaTime);
+            if (Input.GetMouseButton(0))
+            {
+                if (Input.GetMouseButtonDown(0))
+                {
+                    flappyBirdParticles.Play();
+                }
+                rbY = Mathf.Lerp(rbY, maxVelocityY, speedVelocityY * Time.deltaTime);
+                rb.velocity = Vector2.right * speedInFlappyBird + Vector2.up * rbY;
+            }
+            else if (!isGrounded)
+            {
+                rbY = Mathf.Lerp(rbY, -maxVelocityY, speedVelocityNegativeY * Time.deltaTime);
+                rb.velocity = Vector2.right * speedInFlappyBird + Vector2.up * rbY;
+            } else
+                rbY = 0;
 
 
-            //rb.velocity = (Vector2.right * rb.velocity.x) + Vector2.up * Mathf.Lerp(rb.velocity.y, Mathf.Clamp(rb.velocity.y, -maxVelocityY, maxVelocityY), speedVelocityY * Time.deltaTime);
-
-            //isMouseTouch = true;
-            /*           if (rb.velocity.y < 0)
-                       {
-                           rb.velocity = Vector2.right * rb.velocity.x + Vector2.up * (flappybirdForce / rb.mass) * Time.fixedDeltaTime; ;
-                       } else 
-                           rb.AddForce(Vector2.up * flappybirdForce);*/
-        } else if (isFlappyBird)
-        {
-            rbY = Mathf.Lerp(rbY, -maxVelocityY, speedVelocityY * Time.deltaTime);
-            rb.velocity = Vector2.right * rb.velocity.x + Vector2.up * rbY;
+            if (Input.GetMouseButtonUp(0))
+            {
+                flappyBirdParticles.Stop();
+            }
         }
         
     }
@@ -257,7 +256,7 @@ public class PlayerController : MonoSingleton<PlayerController>
 
     public void ResetPlayer()
     {
-        
+        flappyBirdParticles.Stop();
         transform.position = checkPointPosition;
         spriteRenderer.flipX = false;
         angleHook = baseAngleHook;
@@ -277,15 +276,17 @@ public class PlayerController : MonoSingleton<PlayerController>
         }
         StartCoroutine(WaitAndResetPlayer());
 
-        spriteRenderer.sprite = basicSprite;
-        if (isFlappyBird)
+        if (!isConcerveStateAtDeath)
         {
-            isNoMoveCam = false;
-            isFlappyBird = false;
+            spriteRenderer.sprite = basicSprite;
+            if (isFlappyBird)
+            {
+                isNoMoveCam = false;
+                isFlappyBird = false;
+            }
+            spriteRenderer.transform.localScale = Vector3.one * baseScalePlayer;
+            rb.gravityScale = 1;
         }
-        spriteRenderer.transform.localScale = Vector3.one * baseScalePlayer;
-        rb.gravityScale = 1;
-        
     }
 
     IEnumerator WaitAndResetPlayer()
@@ -326,10 +327,9 @@ public class PlayerController : MonoSingleton<PlayerController>
         minFOV = baseMinLentOrthoSize;
         hookSpeed = baseHookSpeed;
     }
-
-
     public void TransformPlayerIntoFlappyBird()
     {
+        ResetHook();
         isFlappyBird = true;
         spriteRenderer.sprite = flappybirdSprite;
         rb.gravityScale = massInFlappyBird;
@@ -347,6 +347,7 @@ public class PlayerController : MonoSingleton<PlayerController>
         spriteRenderer.transform.localScale = Vector3.one * baseScalePlayer;
         rb.gravityScale = 1;
         isNoMoveCam = false;
+        flappyBirdParticles.Stop();
     }
 
 }

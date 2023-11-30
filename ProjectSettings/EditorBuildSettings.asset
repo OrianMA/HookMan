@@ -10,10 +10,7 @@ EditorBuildSettings:
     guid: 17de03f00ba299e44b9d2c67b7e9a7f9
   - enabled: 1
     path: Assets/Scenes/LevelParkour1.unity
-    guid: 07c96f9af416b014396480fc9eec92dd
-  - enabled: 1
-    path: Assets/Scenes/LevelParkour2.unity
-    guid: ff7cb06c180a74c498760760571a2f11
+    guid: 1b9c3903d13b2374eb24b10d97c2f6ad
   - enabled: 1
     path: Assets/Scenes/LevelStatic1.unity
     guid: 5f92bb625d86afd45938774fda8b8d93
