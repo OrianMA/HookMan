@@ -9,6 +9,7 @@ public class Menu : MonoBehaviour
     public string _levelParkour;
     public string _levelStatic;
     public string _levelDistance;
+    public GameObject deleteAccountPanel;
 
     public void Awake()
     {
@@ -33,5 +34,16 @@ public class Menu : MonoBehaviour
     public void Quit()
     {
         Application.Quit();
+    }
+
+    public void ActiveDeleteAccountPanel(bool isActive)
+    {
+        deleteAccountPanel.SetActive(isActive);
+    }
+
+    public void DeleteAllScore()
+    {
+        PlayerPrefs.DeleteAll();
+        ActiveDeleteAccountPanel(false);
     }
 }
