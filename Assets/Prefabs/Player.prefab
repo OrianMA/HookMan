@@ -110,7 +110,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6492468849210061243}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0.99, z: 0}
   m_LocalScale: {x: 1, y: 0.099999994, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -190,7 +190,7 @@ ParticleSystem:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-  moveWithTransform: 1
+  moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
   randomSeed: 0
@@ -200,7 +200,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.5
+      scalar: 0.1
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -253,7 +253,7 @@ ParticleSystem:
     startSpeed:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 100
+      scalar: 200
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -307,7 +307,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0.022739422, g: 0.2739466, b: 0.6886792, a: 1}
+      maxColor: {r: 0.02352939, g: 0.6901961, b: 0.3870715, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -422,7 +422,7 @@ ParticleSystem:
     startSizeY:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 5
+      scalar: 3
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -951,7 +951,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 10
+      scalar: 20
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -5205,24 +5205,29 @@ MonoBehaviour:
   forceAddOnGround: 250
   velocityNeedOnGround: 0
   isFirstCheckpoint: 0
-  maxDistanceHook: 350
+  maxDistanceHook: 600
+  isObstacleDetect: 0
   isRight: 1
   isNoMoveCam: 0
   minFOV: 90
   maxFOV: 120
-  lentOrthoSizeSpeed: 1
+  lentOrthoSizeSpeed: 0.7
   virtualCamera: {fileID: 0}
   checkPointPosition: {x: 0, y: 0, z: 0}
-  flappybirdForce: 15
-  flappybirdSprite: {fileID: 21300000, guid: 7c86cb6e6a8840b48858314415ccc0d0, type: 3}
-  massInFlappyBird: 3
-  speedInFlappyBird: 15
-  scaleInFlappyBird: 0
-  fovFlappyBird: 0
-  maxVelocityY: 0
-  speedVelocityY: 0
-  speedVelocityNegativeY: 0
+  flappybirdForce: 700
+  flappybirdSprite: {fileID: 21300000, guid: 489880c9c65da9142b70bf1f841fdc91, type: 3}
+  massInFlappyBird: 0
+  speedInFlappyBird: 25
+  scaleInFlappyBird: 1
+  fovFlappyBird: 130
+  maxVelocityY: 40
+  speedVelocityY: 3
+  speedVelocityNegativeY: 2
   flappyBirdParticles: {fileID: 3534840071276724322}
+  isConcerveStateAtDeath: 0
+  maxMagnitudeToUnstuck: 0.2
+  unstuckDelay: 2
+  unstuckForceApply: 150
 --- !u!232 &8639286826352800124
 DistanceJoint2D:
   m_ObjectHideFlags: 0

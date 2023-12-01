@@ -14,6 +14,7 @@ public class LevelManager : MonoSingleton<LevelManager>
 {
     public int currentLevel;
     public LevelType levelType;
+    public float YOffsetFinishDistance;
 
     string bestScore;
     string scoreOnFinish;
@@ -27,6 +28,16 @@ public class LevelManager : MonoSingleton<LevelManager>
     int milliseconds;
 
     public bool isBeatScore;
+    bool stopUpdate;
+    
+    private void Update()
+    {
+        if (levelType == LevelType.FarFarAway && PlayerController.Instance.transform.position.y <= YOffsetFinishDistance && !stopUpdate)
+        {
+            stopUpdate = true;
+            SetNewTimeOnFinish();
+        }
+    }
 
     public void SetNewTimeOnFinish()
     {

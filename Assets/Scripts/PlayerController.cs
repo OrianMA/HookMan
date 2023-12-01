@@ -25,7 +25,7 @@ public class PlayerController : MonoSingleton<PlayerController>
 
     float baseAngleHook;
     float raycastDistance = 0f; // Distance du rayo               // Masque de couche (LayerMask) pour la couche "FrontEnvironment"
-    bool isObstacleDetect;
+    public bool isObstacleDetect;
     public bool isRight;
     public bool isNoMoveCam;
 
@@ -48,6 +48,11 @@ public class PlayerController : MonoSingleton<PlayerController>
     public ParticleSystem flappyBirdParticles;
     public bool isConcerveStateAtDeath;
 
+    public float maxMagnitudeToUnstuck;
+    public float unstuckDelay;
+    public float unstuckForceApply;
+    public bool isActivePowerUp;
+
     Sprite basicSprite;
 
     bool isFlappyBird;
@@ -66,6 +71,7 @@ public class PlayerController : MonoSingleton<PlayerController>
     float baseMinLentOrthoSize;
 
     float baseScalePlayer;
+    bool isPlayerStop;
 
     
 
@@ -213,7 +219,26 @@ public class PlayerController : MonoSingleton<PlayerController>
                 flappyBirdParticles.Stop();
             }
         }
+
+        if (rb.velocity.magnitude < maxMagnitudeToUnstuck && !isPlayerStop)
+        {
+            isPlayerStop = true;
+            StartCoroutine(UnstuckPlayer());
+        }
         
+    }
+
+    IEnumerator UnstuckPlayer()
+    {
+        yield return new WaitForSeconds(unstuckDelay);
+        if (rb.velocity.magnitude < maxMagnitudeToUnstuck)
+        {
+            if (isRight)
+                rb.AddForce(Vector2.right * unstuckForceApply);
+            else
+                rb.AddForce(Vector2.left * unstuckForceApply);
+        }
+        isPlayerStop = false;
     }
 
     public void HookTouch(Vector2 pos)
@@ -286,6 +311,12 @@ public class PlayerController : MonoSingleton<PlayerController>
             }
             spriteRenderer.transform.localScale = Vector3.one * baseScalePlayer;
             rb.gravityScale = 1;
+        }
+
+        if (isActivePowerUp)
+        {
+            isNoMoveCam = false;
+            isActivePowerUp = false;
         }
     }
 
